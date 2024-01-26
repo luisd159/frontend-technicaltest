@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 export const NotesEdit = (props) => {
-  const { updateNote, Note, formatCategory, toggleEditingNote, fetchData } =
+  const { updateNote, Note, formatCategory, toggleEditingNote } =
     props;
 
   const [text, setText] = useState(Note.text);
