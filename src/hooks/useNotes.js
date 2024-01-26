@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const url ="http://localhost:8080/note";
+const url = `${process.env.REACT_APP_URL_BASE}/note`
 
 export function useNotes() {
   const [notes, setNotes] = useState(null);
