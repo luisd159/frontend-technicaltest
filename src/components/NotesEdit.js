@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 
 export const NotesEdit = (props) => {
-  const { updateNote, Note, formatCategory } = props;
+  const { updateNote, Note, formatCategory, toggleEditingNote, fetchData } =
+    props;
 
   const [text, setText] = useState(Note.text);
   const [category, setCategory] = useState(Note.category);
@@ -12,37 +13,53 @@ export const NotesEdit = (props) => {
     text: text,
     category: category,
     archived: Note.archived,
-    date: new Date()
-  }
-
-  const onCategoryChange = () => {
-    setCategory(document.getElementById("myOptionSelect").value);
-  };
-  const onTextChange = () => {
-    setText(document.getElementById("myTextSelect").value);
+    date: new Date(),
   };
 
-  console.log(note)
+  const patchData = () => {
+    toggleEditingNote();
+  };
+
+  const onCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
+  const onTextChange = (event) => {
+    setText(event.target.value);
+  };
 
   return (
-    <form className="p-3" onSubmit={()=> updateNote(note)}>
-      <label for="exampleFormControlTextarea1">Edit Your Note Below</label>
+    <form
+      className="p-3"
+      onSubmit={(e) => {
+        updateNote(note);
+        e.preventDefault();
+        patchData();
+      }}
+    >
+      <label htmlFor="exampleFormControlTextarea1">Edit Your Note Below</label>
       <textarea
-        class="form-control"
+        className="form-control"
         id="myTextSelect"
         rows="3"
         onChange={onTextChange}
-      >{Note.text}</textarea>
+        defaultValue={Note.text}
+      >
+        {}
+      </textarea>
       <br />
-      <label for="inputState">Edit Your Category</label>
-      <select id="myOptionSelect" class="form-control" onChange={onCategoryChange}>
-        <option selected >{formatCategory(Note.category)}</option>
+      <label htmlFor="inputState">Edit Your Category</label>
+      <select
+        id="myOptionSelect"
+        className="form-control"
+        onChange={onCategoryChange}
+      >
+        <option selected>{formatCategory(Note.category)}</option>
         <option value={"a"}>Any</option>
         <option value={"h"}>Happy</option>
         <option value={"s"}>Sad</option>
       </select>
       <br />
-      <button type="submit" class="btn btn-primary">
+      <button type="submit" className="btn btn-primary">
         Submit
       </button>
     </form>

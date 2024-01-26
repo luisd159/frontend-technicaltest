@@ -35,8 +35,8 @@ function App() {
     isEditingNote,
     toggleEditingNote
   };
-  const onCategoryChange = () => {
-    categoryNotes(document.getElementById("mySelect").value);
+  const onCategoryChange = (event) => {
+    categoryNotes(event.target.value);
   };
 
   return (
@@ -62,10 +62,10 @@ function App() {
               Show Archived Notes
             </button>
             <div>
-              <label for="inputState"> Filter By Category </label>
+              <label htmlFor="inputState"> Filter By Category </label>
               <select
                 id="mySelect"
-                class="form-control"
+                className="form-control"
                 onChange={onCategoryChange}
               >
                 <option selected value={"a"}>

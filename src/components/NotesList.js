@@ -40,39 +40,52 @@ export const NotesList = (props) => {
     <div className="data">
       <br></br>
       <table>
-        <tr>
-          <th>Id</th>
-          <th>Text</th>
-          <th>Category</th>
-          <th>Archive</th>
-          <th>Date</th>
-          <th>Actions</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Text</th>
+            <th>Category</th>
+            <th>Archive</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
         {error && <li>Error: {error}</li>}
-        {data
-          ?.sort((a, b) => a.id - b.id)
-          .map((note) => (
-            <tr>
-              <td>{note.id}</td>
-              <td>{note.text}</td>
-              <td>{formatCategory(note.category)}</td>
-              <td>{note.archived ? "Yes" : "No"}</td>
-              <td>{formatDate(note.date)}</td>
-              <td>
-                <div className="d-flex justify-content-between gap-3 px-3"></div>
-                <button class="btn btn-success" onClick={() => edit(note)}>
-                  Edit
-                </button>
-                <button class="btn btn-warning" onClick={() => archive(note)}>
-                  {note.archived ? "Unarchive" : "Archive"}
-                </button>
-                <button onClick={() => delNote(note.id)} class="btn btn-danger">
-                  Delete
-                </button>
-                <div />
-              </td>
-            </tr>
-          ))}
+        <tbody>
+          {data
+            ?.sort((a, b) => a.id - b.id)
+            .map((note) => (
+              <tr key={note.id}>
+                <td>{note.id}</td>
+                <td>{note.text}</td>
+                <td>{formatCategory(note.category)}</td>
+                <td>{note.archived ? "Yes" : "No"}</td>
+                <td>{formatDate(note.date)}</td>
+                <td>
+                  <div className="d-flex justify-content-between gap-3 px-3"></div>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => edit(note)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => archive(note)}
+                  >
+                    {note.archived ? "Unarchive" : "Archive"}
+                  </button>
+                  <button
+                    onClick={() => delNote(note.id)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
+                  <div />
+                </td>
+              </tr>
+            ))}
+        </tbody>
       </table>
       <div>
         {isEditingNote ? (
@@ -80,6 +93,7 @@ export const NotesList = (props) => {
             formatCategory={formatCategory}
             updateNote={updateNote}
             Note={note}
+            toggleEditingNote= {toggleEditingNote}
           />
         ) : (
           <></>

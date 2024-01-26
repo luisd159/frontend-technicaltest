@@ -42,6 +42,7 @@ export function useNotes() {
         archived: props.archived,
         date: new Date(),
       });
+      fetchData();
     } catch (error) {
       setError(error);
     }
